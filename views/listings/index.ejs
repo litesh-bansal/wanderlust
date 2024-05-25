@@ -1,0 +1,259 @@
+<% layout("/layouts/boilerplate") -%>
+<body> 
+    
+    <!-- <h3>All Listings</h3> -->
+    <!-- <form method="GET" action="/listings/new">
+        <button>Create new Route</button>
+    </form> -->
+    <style>
+        .menu-wrapper
+        {
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 100%;
+        }
+        #filters
+        {
+            overflow-x: hidden;
+            white-space: nowrap;
+            display: flex;
+            flex-grow: 1;
+            scrollbar-width: thin;
+            cursor: grab;
+        }
+        #filters::-webkit-scrollbar 
+        {
+            height: 8px; /* For Chrome, Safari, and Opera */
+        }
+        #filters::-webkit-scrollbar-thumb 
+        {
+            background-color: white;
+            border-radius: 10px;
+        }
+        .filter 
+        {
+            display: inline-block;
+            padding: 10px 20px;
+            white-space: nowrap;
+        }
+
+        .scroll-btn
+        {
+            background-color: white;
+            color: white;
+            border: none;
+            cursor: pointer;
+            z-index: 1;
+        }
+        .scroll-btn.left {
+        position: absolute;
+        left: 0;
+        }
+
+        .scroll-btn.right {
+        position: absolute;
+        right: 0;
+        }
+        .filter p{
+            font-size: 0.8rem;
+        }
+        .tax-info
+        {
+            display: none; 
+        } 
+        
+       
+    </style>
+
+        <div class="menu-wrapper">
+            <button class="scroll-btn left" onclick="scrollMenu('left')">&#9664;></button>
+                <div id="filters">
+                    <div class="filter ">
+                        <div><i class="fa-solid fa-fire"></i></div>
+                        <p>Trending</p>
+                    </div>
+                    <div class="filter ">
+                        <div><i class="fa-solid fa-bed"></i></div>
+                        <p>Rooms</p>
+                    </div>
+                    <div class="filter ">
+                        <div><i class="fa-solid fa-mountain-city"></i></div>
+                        <p>Iconic city</p>
+                    </div>
+                    <div class="filter ">
+                        <div><i class="fa-solid fa-mountain-sun"></i></div>
+                        <p>Mountains</p>
+                    </div>
+                    <div class="filter ">
+                        <div><i class="fa-brands fa-fort-awesome"></i></div>
+                        <p>Castles</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-person-swimming"></i></div>
+                        <p>Amazing Pools</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-tents"></i></div>
+                        <p>Camping</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-wheat-awn"></i></div>
+                        <p>Farms</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-igloo"></i></div>
+                        <p>Domes</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-igloo"></i></div>
+                        <p>Domes</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-ferry"></i></div>
+                        <p>boats</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-igloo"></i></div>
+                        <p>Domes</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-igloo"></i></div>
+                        <p>Domes</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-ferry"></i></div>
+                        <p>boats</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-igloo"></i></div>
+                        <p>Domes</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-igloo"></i></div>
+                        <p>Domes</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-ferry"></i></div>
+                        <p>boats</p>
+                    </div> 
+                    <div class="filter">
+                        <div><i class="fa-solid fa-igloo"></i></div>
+                        <p>Domes</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-igloo"></i></div>
+                        <p>Domes</p>
+                    </div>
+                    <div class="filter">
+                        <div><i class="fa-solid fa-ferry"></i></div>
+                        <p>boats</p>
+                    </div> 
+        
+                </div>
+            <button class="scroll-btn right" onclick="scrollMenu('right')">&#9654;></button>
+        </div>
+        
+    
+    
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% for(let listing of allListings) {%>
+            <a href="/listings/<%=listing._id%>" class="listing-links">
+                <div class="card col listing-card">
+                    <img src="<%= listing.image.url%>" class="card-img-top card-image-overlay" alt="listing_image" style="height: 20rem;">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b><%= listing.title%></b> <br>
+                            &#8377 <%=listing.price.toLocaleString('en-IN')%>/night
+                            <i class="tax-info">&nbsp; +18% GST</i>
+                        </p>
+                    </div>
+                </div>
+            </a>
+            
+            
+          <% } %>
+    </div>
+    
+    
+</body>
+
+<script>
+    function scrollMenu(direction) {
+  const container = document.querySelector('#filters');
+  const scrollAmount = 100; // Adjust scroll amount as needed
+
+  if (direction === 'left') {
+    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  } else {
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  const container = document.querySelector('#filters');
+
+  function updateScrollButtons() {
+    const leftButton = document.querySelector('.scroll-btn.left');
+    const rightButton = document.querySelector('.scroll-btn.right');
+
+    // Show or hide left button
+    if (container.scrollLeft > 0) {
+      leftButton.style.display = 'block';
+    } else {
+      leftButton.style.display = 'none';
+    }
+
+    // Show or hide right button
+    if (container.scrollLeft + container.clientWidth < container.scrollWidth-1) {
+      rightButton.style.display = 'block';
+    } else {
+      rightButton.style.display = 'none';
+    }
+  }
+
+  // Initial update
+  updateScrollButtons();
+
+  // Update on scroll
+  container.addEventListener('scroll', updateScrollButtons);
+
+  // Update on resize
+  window.addEventListener('resize', updateScrollButtons);
+
+  // Enable drag to scroll
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  container.addEventListener('mousedown', (e) => {
+    isDown = true;
+    container.classList.add('active');
+    startX = e.pageX - container.offsetLeft;
+    scrollLeft = container.scrollLeft;
+    container.style.cursor = 'grabbing'; // Change cursor to grabbing
+  });
+
+  container.addEventListener('mouseleave', () => {
+    isDown = false;
+    container.classList.remove('active');
+    container.style.cursor = 'grab'; // Reset cursor
+  });
+
+  container.addEventListener('mouseup', () => {
+    isDown = false;
+    container.classList.remove('active');
+    container.style.cursor = 'grab'; // Reset cursor
+  });
+
+  container.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - container.offsetLeft;
+    const walk = (x - startX) * 2; // Adjust scroll speed
+    container.scrollLeft = scrollLeft - walk;
+  });
+});
+
+
+</script>  
