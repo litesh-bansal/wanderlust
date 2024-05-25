@@ -179,23 +179,13 @@
 </body>
 
 <script>
-    function scrollMenu(direction) {
-  const container = document.querySelector('#filters');
-  const scrollAmount = 100; // Adjust scroll amount as needed
-
-  if (direction === 'left') {
-    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-  } else {
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  }
-}
-
-document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function() {
   const container = document.querySelector('#filters');
 
   function updateScrollButtons() {
     const leftButton = document.querySelector('.scroll-btn.left');
     const rightButton = document.querySelector('.scroll-btn.right');
+    const tolerance = 2; // Small tolerance value to account for rounding issues
 
     // Show or hide left button
     if (container.scrollLeft > 0) {
@@ -205,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Show or hide right button
-    if (container.scrollLeft + container.clientWidth < container.scrollWidth-1) {
+    if (container.scrollLeft + container.clientWidth < container.scrollWidth - tolerance) {
       rightButton.style.display = 'block';
     } else {
       rightButton.style.display = 'none';
@@ -253,7 +243,27 @@ document.addEventListener("DOMContentLoaded", function() {
     const walk = (x - startX) * 2; // Adjust scroll speed
     container.scrollLeft = scrollLeft - walk;
   });
+
+  // Enable touch to scroll
+  container.addEventListener('touchstart', (e) => {
+    isDown = true;
+    startX = e.touches[0].pageX - container.offsetLeft;
+    scrollLeft = container.scrollLeft;
+  });
+
+  container.addEventListener('touchend', () => {
+    isDown = false;
+  });
+
+  container.addEventListener('touchmove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.touches[0].pageX - container.offsetLeft;
+    const walk = (x - startX) * 2; // Adjust scroll speed
+    container.scrollLeft = scrollLeft - walk;
+  });
 });
+
 
 
 </script>  
