@@ -1,0 +1,52 @@
+.menu-wrapper
+{
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+#filters
+{
+    overflow-x: hidden;
+    white-space: nowrap;
+    display: flex;
+    flex-grow: 1;
+    scrollbar-width: thin;
+    cursor: grab;
+}
+#filters::-webkit-scrollbar 
+{
+    height: 8px; /* For Chrome, Safari, and Opera */
+}
+#filters::-webkit-scrollbar-thumb 
+{
+    background-color: white;
+    border-radius: 10px;
+}
+.filter 
+{
+    display: inline-block;
+    padding: 10px 20px;
+    white-space: nowrap;
+}
+
+.scroll-btn
+{
+    background-color: white;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+}
+.scroll-btn.left {
+position: absolute;
+left: 0;
+}
+
+.scroll-btn.right {
+position: absolute;
+right: 0;
+}
+.filter p{
+    font-size: 0.8rem;
+}
